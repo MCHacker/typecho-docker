@@ -5,3 +5,4 @@ RUN cd /tmp && wget https://github.com/typecho/typecho/releases/download/v$TYPEC
     && tar -xvf typecho.tar.gz && mv -rf /tmp/build/* /var/www/html/ \
     && chmod -R 777 /var/www/html \
     && rm -rf /tmp/*
+VOLUME /data
