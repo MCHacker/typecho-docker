@@ -1,0 +1,8 @@
+---
+typecho:
+  restart: always
+  image: derekamz/typecho:latest
+  volumes:
+    - /data:/data
+  ports:
+    - "80:80
