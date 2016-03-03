@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y unzip \
     && tar -xvf typecho.tar.gz && mv -f /tmp/build/* /var/www/html/ \
     && curl -o typecho_material_theme.zip -L https://github.com/Hanccc/typecho_material_theme/archive/master.zip \
     && unzip typecho_material_theme.zip && mv ./typecho_material_theme-master /var/www/html/usr/themes/typecho_material_theme \
+    && curl -o typecho_lanyon_theme.zip -L https://github.com/LjxPrime/lanyon-typecho/archive/master.zip \
+    && unzip typecho_lanyon_theme.zip && mv ./lanyon-typecho-master /var/www/html/usr/themes/lanyon-typecho \
     && chmod -R 777 /var/www/html && chmod +x /entrypoint.sh \
     && rm -rf /tmp/* \
     && apt-get purge -y --auto-remove unzip
