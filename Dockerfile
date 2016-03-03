@@ -1,8 +1,15 @@
 FROM php:7.0-apache
 ENV TYPECHO_MAJOR_VER 1.0
 ENV TYPECHO_VER 14.10.10
-RUN cd /tmp && curl -o typecho.tar.gz -L https://github.com/typecho/typecho/releases/download/v$TYPECHO_MAJOR_VER-$TYPECHO_VER-release/$TYPECHO_MAJOR_VER.$TYPECHO_VER.-release.tar.gz \
+ADD entrypoint.sh /entrypoint.sh
+RUN apt-get update && apt-get install -y unzip \
+    && cd /tmp && curl -o typecho.tar.gz -L https://github.com/typecho/typecho/releases/download/v$TYPECHO_MAJOR_VER-$TYPECHO_VER-release/$TYPECHO_MAJOR_VER.$TYPECHO_VER.-release.tar.gz \
     && tar -xvf typecho.tar.gz && mv -f /tmp/build/* /var/www/html/ \
-    && chmod -R 777 /var/www/html \
-    && rm -rf /tmp/*
+    && curl -o typecho_material_theme.zip -L https://github.com/Hanccc/typecho_material_theme/archive/master.zip \
+    && unzip typecho_material_theme.zip && mv ./typecho_material_theme-master /var/www/html/usr/themes/typecho_material_theme \
+    && chmod -R 777 /var/www/html && chmod +x /entrypoint.sh \
+    && rm -rf /tmp/* \
+    && apt-get purge -y --auto-remove unzip
 VOLUME /data
+
+ENTRYPOINT ["/entrypoint.sh"]
